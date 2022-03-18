@@ -51,6 +51,8 @@ void mandelbrot_data(int points_along_real, int points_along_imag){
     std::complex<double> imaginary_number = 1j;
     std::complex<double> delta_imag = delta_imag_real*imaginary_number;
 
+    std::cout << delta_imag;
+
 //vectors for storing datapoints and if they are in the mandelbrot set
     std::vector<std::complex<double>> datapoints;    
 
@@ -92,7 +94,7 @@ void mandelbrot_data(int points_along_real, int points_along_imag){
     std::ofstream datfile;
     datfile.open("data_matrix.txt");
     for(int i = 0; i < datapoints.size()-1; ++i){
-        datfile << datapoints.at(i);
+        datfile << datapoints.at(i) << "\n";
     }
     datfile.close();
 
@@ -100,13 +102,13 @@ void mandelbrot_data(int points_along_real, int points_along_imag){
     std::ofstream boolfile;
     boolfile.open("bool_matrix.txt");
     for(size_t i = 0; i < bool_mask.size()-1; ++i){
-        boolfile << bool_mask.at(i);
+        boolfile << bool_mask.at(i) << "\n";
     }
     boolfile.close();
 }
 
 int main(){
-    mandelbrot_data(1000, 1000);
+    mandelbrot_data(100, 100);
     //in_mandelbrot(1);
     //std::cout << in_mandelbrot(1);
     return 0;
