@@ -1,16 +1,16 @@
 #include <iostream>
 #include <fstream>
 #include <math.h>
+#include <vector>
+
 
 #include <Eigen/Dense>
 
-using Eigen::Matrix2d;
-using Eigen::Vector2d;
-using Eigen::Vector3d;
+using Eigen::Matrix;
 
 double mod(std::complex<double> z){
-    double real = static_cast<double>(z.real());
-    double imag = static_cast<double>(z.imag());
+    double real = z.real();
+    double imag = z.imag();
     double mod_squared = std::pow(real, 2) + std::pow(imag, 2);
     double modulus = sqrt(mod_squared);
     return modulus;
@@ -19,39 +19,89 @@ double mod(std::complex<double> z){
 bool in_mandelbrot(std::complex<double> c){
     std::complex<double> z_n_1;
     std::complex<double> z_n = 0;
-    bool in_set = true;
+    bool in_set = false;
+    int modulus;
 
-    for(int i; i < 10; ++i){
+    for(size_t i; i < 1000; ++i){
         z_n_1 = std::pow(z_n, 2) + c;
         z_n = z_n_1;
-        double modulus = mod(z_n);
-        if(modulus > 2){
-            in_set = false;
-        }
+        modulus = mod(z_n); 
     }
+    if (modulus <= 2){
+        in_set = true;
+    }
+
     return in_set;
 }
 
+void mandelbrot_data(int points_along_real, int points_along_imag){
 
-void mandelbrot_data(){
-/*
+//define area we want to focus on and step size
+    std::complex<double> top_left = -2+1.2j;
+    std::complex<double> bottom_right = 1.2-1.2j;
+    std::complex<double> delta_real = std::abs(top_left.real() - bottom_right.real()) /
+                        static_cast<std::complex<double>>(points_along_real);
+    double delta_imag_real = std::abs(top_left.imag() - bottom_right.imag()) /
+                        static_cast<double>(points_along_imag);
+    std::complex<double> imaginary_number = 1j;
+    std::complex<double> delta_imag = delta_imag_real*imaginary_number;
 
-current idea is to make a matrix roughly from (tl, tr, br, bl) 
-(-2+1.2i, 1.2+1.2i, 1.2-1.2i, -2-1.2i) which is very dense (lots
-of points close together) and then iterate through all of them and if check if
-they're in the mandelbrot set using "in_mandelbrot" function. Then get this 
-data written to data.txt file which can be used to plot in python. This should
-give a pretty decent visual of the mandelbrot set.
+//vectors for storing datapoints and if they are in the mandelbrot set
+    std::vector<std::complex<double>> datapoints;    
 
-*/
+    std::complex<double> current_point = top_left;
+
+    for(size_t re = 1; re < points_along_real; ++re){
+        std::complex<double> real_multiplier = static_cast<std::complex<double>>(re);
+        current_point = top_left + real_multiplier*delta_real;
+
+        for(size_t im = 1; im < points_along_imag; ++im){
+
+            // finding points and adding to points vector
+            std::complex<double> imag_multiplier = static_cast<std::complex<double>>(im);
+            std::complex<double> imag_current_point = current_point - delta_imag*imag_multiplier;
+            datapoints.push_back(imag_current_point);
+        }
+    }
+
+    std::vector<bool> bool_mask;
+    for(size_t i = 0; i < datapoints.size()-1; ++i){
+        std::complex<double> point = datapoints.at(i);
+        bool in_set = in_mandelbrot(point);
+        bool_mask.push_back(in_set);
+    }
+
+    //get the sum of the boolen matrix
+    int sum = 0;
+    for(size_t i = 0; i < bool_mask.size()-1;++i){
+        sum += bool_mask.at(i);
+    }
+    //print sum of bool to file
+    std::ofstream sumfile;
+    sumfile.open("check.txt");
+    sumfile << sum;
+    sumfile.close();
+
+
+    //print matrix of points to file
+    std::ofstream datfile;
+    datfile.open("data_matrix.txt");
+    for(int i = 0; i < datapoints.size()-1; ++i){
+        datfile << datapoints.at(i);
+    }
+    datfile.close();
+
+    //print matrix of bool to file
+    std::ofstream boolfile;
+    boolfile.open("bool_matrix.txt");
+    for(size_t i = 0; i < bool_mask.size()-1; ++i){
+        boolfile << bool_mask.at(i);
+    }
+    boolfile.close();
 }
 
 int main(){
-    std::ofstream myfile;
-    myfile.open("data.txt");
-    myfile << in_mandelbrot(1);
-    myfile.close();
-    std::cout << in_mandelbrot(1);
+    mandelbrot_data(100, 100);
     return 0;
 }
 
