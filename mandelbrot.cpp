@@ -22,10 +22,15 @@ bool in_mandelbrot(std::complex<double> c){
     bool in_set = false;
     int modulus;
 
-    for(size_t i; i < 1000; ++i){
+    for(size_t i=0; i < 1000; ++i){
         z_n_1 = std::pow(z_n, 2) + c;
         z_n = z_n_1;
-        modulus = mod(z_n); 
+        modulus = mod(z_n);
+
+        //std::cout << modulus << std::endl;
+        if(modulus > 5){
+            break;
+        }
     }
     if (modulus <= 2){
         in_set = true;
@@ -101,7 +106,9 @@ void mandelbrot_data(int points_along_real, int points_along_imag){
 }
 
 int main(){
-    mandelbrot_data(100, 100);
+    mandelbrot_data(1000, 1000);
+    //in_mandelbrot(1);
+    //std::cout << in_mandelbrot(1);
     return 0;
 }
 
