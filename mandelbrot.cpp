@@ -89,31 +89,8 @@ void mandelbrot_data(int points_along_real, int points_along_imag){
 
         }
     }
-
-/*
-    std::vector<bool> bool_mask;
-    for(size_t i = 0; i < datapoints.size()-1; ++i){
-        std::complex<double> point = datapoints.at(i);
-        bool in_set = in_mandelbrot(point);
-        bool_mask.push_back(in_set);
-    }
-    //print matrix of points to file
-    std::ofstream datfile;
-    datfile.open("data_matrix.txt");
-    for(int i = 0; i < datapoints.size()-1; ++i){
-        datfile << datapoints.at(i) << "\n";
-    }
-    datfile.close();
-
-    //print matrix of bool to file
-    std::ofstream boolfile;
-    boolfile.open("bool_matrix.txt");
-    for(size_t i = 0; i < bool_mask.size()-1; ++i){
-        boolfile << bool_mask.at(i) << "\n";
-    }
-    boolfile.close();
-    */
 }
+
 
 int main(){
     mandelbrot_data(100, 100);
