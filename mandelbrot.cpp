@@ -64,6 +64,8 @@ void mandelbrot_data(int points_along_real, int points_along_imag){
 
     std::complex<double> current_point = top_left;
 
+    
+
     for(size_t re = 1; re < points_along_real; ++re){
         std::complex<double> real_multiplier = static_cast<std::complex<double>>(re);
         current_point = top_left + real_multiplier*delta_real;
@@ -73,10 +75,22 @@ void mandelbrot_data(int points_along_real, int points_along_imag){
             // finding points and adding to points vector
             std::complex<double> imag_multiplier = static_cast<std::complex<double>>(im);
             std::complex<double> imag_current_point = current_point - delta_imag*imag_multiplier;
-            datapoints.push_back(imag_current_point);
+
+            std::ofstream datfile;
+            datfile.open("data_matrix.txt", std::ios::app);
+            datfile << imag_current_point << "\n";
+            datfile.close();
+
+            bool in_set = in_mandelbrot(imag_current_point);
+            std::ofstream boolfile;
+            boolfile.open("bool_matrix.txt", std::ios::app);
+            boolfile << in_set << "\n";
+            boolfile.close();
+
         }
     }
 
+/*
     std::vector<bool> bool_mask;
     for(size_t i = 0; i < datapoints.size()-1; ++i){
         std::complex<double> point = datapoints.at(i);
@@ -98,10 +112,11 @@ void mandelbrot_data(int points_along_real, int points_along_imag){
         boolfile << bool_mask.at(i) << "\n";
     }
     boolfile.close();
+    */
 }
 
 int main(){
-    mandelbrot_data(1e5, 1e5);
+    mandelbrot_data(100, 100);
     return 0;
 }
 
