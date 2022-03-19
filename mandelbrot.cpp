@@ -101,7 +101,7 @@ void mandelbrot_data(int points_along_real, int points_along_imag){
 }
 
 int main(){
-    mandelbrot_data(100, 100);
+    mandelbrot_data(1e5, 1e5);
     return 0;
 }
 
