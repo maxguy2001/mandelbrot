@@ -18,7 +18,7 @@ for i in data:
 df = pd.read_csv("build/bool_matrix.txt", delimiter = "\n", header = None)
 bools = list(df[[0]][0])
 
-plt.scatter(x=reals, y = imags, alpha=bools)
+plt.scatter(x=reals, y = imags, alpha=bools, marker = ".")
 plt.xlabel("Real Axis")
 plt.ylabel("Imaginary Axis")
 plt.show()

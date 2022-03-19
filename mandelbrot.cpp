@@ -2,12 +2,12 @@
 #include <fstream>
 #include <math.h>
 #include <vector>
+#include <complex>
 
 
-#include <Eigen/Dense>
-
-using Eigen::Matrix;
-
+/*
+@brief returns the modulus of a complex number
+*/
 double mod(std::complex<double> z){
     double real = z.real();
     double imag = z.imag();
@@ -16,6 +16,9 @@ double mod(std::complex<double> z){
     return modulus;
 }
 
+/*
+@brief returns a boolean value of if a complex number is in the mandelbrot set.
+*/
 bool in_mandelbrot(std::complex<double> c){
     std::complex<double> z_n_1;
     std::complex<double> z_n = 0;
@@ -27,7 +30,6 @@ bool in_mandelbrot(std::complex<double> c){
         z_n = z_n_1;
         modulus = mod(z_n);
 
-        //std::cout << modulus << std::endl;
         if(modulus > 5){
             break;
         }
@@ -39,6 +41,12 @@ bool in_mandelbrot(std::complex<double> c){
     return in_set;
 }
 
+
+/*
+@brief takes n by m evenly spaced points in an area of the complex plane
+and wrties them along with a boolean mask of if they are in the mandelbrot
+set to files.
+*/
 void mandelbrot_data(int points_along_real, int points_along_imag){
 
 //define area we want to focus on and step size
@@ -50,8 +58,6 @@ void mandelbrot_data(int points_along_real, int points_along_imag){
                         static_cast<double>(points_along_imag);
     std::complex<double> imaginary_number = 1j;
     std::complex<double> delta_imag = delta_imag_real*imaginary_number;
-
-    std::cout << delta_imag;
 
 //vectors for storing datapoints and if they are in the mandelbrot set
     std::vector<std::complex<double>> datapoints;    
@@ -77,19 +83,6 @@ void mandelbrot_data(int points_along_real, int points_along_imag){
         bool in_set = in_mandelbrot(point);
         bool_mask.push_back(in_set);
     }
-
-    //get the sum of the boolen matrix
-    int sum = 0;
-    for(size_t i = 0; i < bool_mask.size()-1;++i){
-        sum += bool_mask.at(i);
-    }
-    //print sum of bool to file
-    std::ofstream sumfile;
-    sumfile.open("check.txt");
-    sumfile << sum;
-    sumfile.close();
-
-
     //print matrix of points to file
     std::ofstream datfile;
     datfile.open("data_matrix.txt");
@@ -109,8 +102,6 @@ void mandelbrot_data(int points_along_real, int points_along_imag){
 
 int main(){
     mandelbrot_data(100, 100);
-    //in_mandelbrot(1);
-    //std::cout << in_mandelbrot(1);
     return 0;
 }
 
