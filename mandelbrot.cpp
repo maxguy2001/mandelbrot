@@ -25,7 +25,7 @@ bool in_mandelbrot(std::complex<double> c){
     bool in_set = false;
     int modulus;
 
-    for(size_t i=0; i < 1000; ++i){
+    for(size_t i=0; i < 200; ++i){
         z_n_1 = std::pow(z_n, 2) + c;
         z_n = z_n_1;
         modulus = mod(z_n);
@@ -41,6 +41,25 @@ bool in_mandelbrot(std::complex<double> c){
     return in_set;
 }
 
+/*
+@brief returns a progress bar in terminal
+*/
+std::string progressBar(double progress, double total){
+    int num_progress_markers = static_cast<int>((progress/total)*50);
+    int num_not_progress_markers = 50 - num_progress_markers;
+    std::string progress_bar = "[";
+
+    for(size_t i = 0; i < num_progress_markers; ++i){
+        progress_bar.append("#");
+    }
+    for(size_t i = 0; i < num_not_progress_markers; ++i){
+        progress_bar.append("."); 
+    }
+    progress_bar.append("]");
+    std::cout << progress_bar << "\r";
+
+    return "";
+}
 
 /*
 @brief takes n by m evenly spaced points in an area of the complex plane
@@ -59,16 +78,18 @@ void mandelbrot_data(int points_along_real, int points_along_imag){
     std::complex<double> imaginary_number = 1j;
     std::complex<double> delta_imag = delta_imag_real*imaginary_number;
 
-//vectors for storing datapoints and if they are in the mandelbrot set
+    //vectors for storing datapoints and if they are in the mandelbrot set
     std::vector<std::complex<double>> datapoints;    
-
     std::complex<double> current_point = top_left;
-
-    
 
     for(size_t re = 1; re < points_along_real; ++re){
         std::complex<double> real_multiplier = static_cast<std::complex<double>>(re);
         current_point = top_left + real_multiplier*delta_real;
+
+        if(re % 10 == 0){
+            std::string progress_bar = progressBar(re, points_along_real);
+            std::cout << progress_bar << "\r";
+        }
 
         for(size_t im = 1; im < points_along_imag; ++im){
 
@@ -93,7 +114,7 @@ void mandelbrot_data(int points_along_real, int points_along_imag){
 
 
 int main(){
-    mandelbrot_data(100, 100);
+    mandelbrot_data(1e5, 1e5);
     return 0;
 }
 
