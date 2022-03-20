@@ -19,7 +19,7 @@ double mod(std::complex<double> z){
 /*
 @brief returns a boolean value of if a complex number is in the mandelbrot set.
 */
-bool in_mandelbrot(std::complex<double> c){
+bool inMandelbrot(std::complex<double> c){
     std::complex<double> z_n_1;
     std::complex<double> z_n = 0;
     bool in_set = false;
@@ -66,7 +66,7 @@ std::string progressBar(double progress, double total){
 and wrties them along with a boolean mask of if they are in the mandelbrot
 set to files.
 */
-void mandelbrot_data(int points_along_real, int points_along_imag){
+void mandelbrotData(int points_along_real, int points_along_imag){
 
 //define area we want to focus on and step size
     std::complex<double> top_left = -2+1.2j;
@@ -102,7 +102,7 @@ void mandelbrot_data(int points_along_real, int points_along_imag){
             datfile << imag_current_point << "\n";
             datfile.close();
 
-            bool in_set = in_mandelbrot(imag_current_point);
+            bool in_set = inMandelbrot(imag_current_point);
             std::ofstream boolfile;
             boolfile.open("bool_matrix.txt", std::ios::app);
             boolfile << in_set << "\n";
@@ -114,7 +114,7 @@ void mandelbrot_data(int points_along_real, int points_along_imag){
 
 
 int main(){
-    mandelbrot_data(1e5, 1e5);
+    mandelbrotData(1e5, 1e5);
     return 0;
 }
 
