@@ -1,25 +1,22 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-df = pd.read_csv("build/data_matrix.txt", delimiter = "\n", header = None)
-data = list(df[[0]][0])
-data = [x.replace(")", "") for x in data]
-data = [x.replace("(", "") for x in data]
-
-
-df = pd.read_csv("build/bool_matrix.txt", delimiter = "\n", header = None)
-bools = list(df[[0]][0])
-
 reals = []
 imags = []
 
-for i in data:
-   x = i.split(",")
-   reals.append(float(x[0]))
-   imags.append(float(x[1]))
+files = ["build/data_t1.txt", "build/data_t2.txt", "build/data_t3.txt", "build/data_t4.txt"]
 
-reals = [reals[i]*bools[i] for i in range(len(bools))]
-imags = [imags[i]*bools[i] for i in range(len(bools))]
+for i in files:
+   df = pd.read_csv(i, delimiter = "\n", header = None)
+   data = list(df[[0]][0])
+   data = [x.replace(")", "") for x in data]
+   data = [x.replace("(", "") for x in data]
+
+   for j in data:
+      x = j.split(",")
+      reals.append(float(x[0]))
+      imags.append(float(x[1]))
+
 
 plt.scatter(x=reals, y = imags, marker = ".")
 plt.xlabel("Real Axis")

@@ -71,10 +71,12 @@ void mandelbrotData(int points_along_real, int points_along_imag){
 //define area we want to focus on and step size
     std::complex<double> top_left = -2+1.2j;
     std::complex<double> bottom_right = 1.2-1.2j;
+
+
     std::complex<double> delta_real = std::abs(top_left.real() - bottom_right.real()) /
-                        static_cast<std::complex<double>>(points_along_real);
+                        static_cast<std::complex<double>>(points_along_real/2);
     double delta_imag_real = std::abs(top_left.imag() - bottom_right.imag()) /
-                        static_cast<double>(points_along_imag);
+                        static_cast<double>(points_along_imag/2);
     std::complex<double> imaginary_number = 1j;
     std::complex<double> delta_imag = delta_imag_real*imaginary_number;
 
