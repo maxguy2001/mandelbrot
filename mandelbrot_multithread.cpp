@@ -190,7 +190,7 @@ void MandelbrotData_t4(int points_along_real, int points_along_imag){
 
     for(size_t re = 1; re < points_along_real; ++re){
         std::complex<double> real_multiplier = static_cast<std::complex<double>>(re);
-        current_point = top_left + real_multiplier*delta_real
+        current_point = top_left + real_multiplier*delta_real;
 
         for(size_t im = 1; im < points_along_imag; ++im){
 
