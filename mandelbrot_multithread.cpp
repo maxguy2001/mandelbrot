@@ -45,26 +45,6 @@ bool inMandelbrot(std::complex<double> c){
 }
 
 /*
-@brief returns a progress bar in terminal
-*/
-std::string progressBar(double progress, double total){
-    int num_progress_markers = static_cast<int>((progress/total)*50);
-    int num_not_progress_markers = 50 - num_progress_markers;
-    std::string progress_bar = "[";
-
-    for(size_t i = 0; i < num_progress_markers; ++i){
-        progress_bar.append("#");
-    }
-    for(size_t i = 0; i < num_not_progress_markers; ++i){
-        progress_bar.append("."); 
-    }
-    progress_bar.append("]");
-    std::cout << progress_bar << "\r";
-
-    return "";
-}
-
-/*
 @brief takes n by m evenly spaced points in an area of the complex plane
 and wrties them along with a boolean mask of if they are in the mandelbrot
 set to files.
@@ -210,7 +190,7 @@ void MandelbrotData_t4(int points_along_real, int points_along_imag){
 
     for(size_t re = 1; re < points_along_real; ++re){
         std::complex<double> real_multiplier = static_cast<std::complex<double>>(re);
-        current_point = top_left + real_multiplier*delta_real;
+        current_point = top_left + real_multiplier*delta_real
 
         for(size_t im = 1; im < points_along_imag; ++im){
 
@@ -231,10 +211,10 @@ void MandelbrotData_t4(int points_along_real, int points_along_imag){
 
 
 int main(){
-    std::thread t1(MandelbrotData_t1, 100, 100);
-    std::thread t2(MandelbrotData_t2, 100, 100);
-    std::thread t3(MandelbrotData_t3, 100, 100);
-    std::thread t4(MandelbrotData_t4, 100, 100);
+    std::thread t1(MandelbrotData_t1, 1000, 1000);
+    std::thread t2(MandelbrotData_t2, 1000, 1000);
+    std::thread t3(MandelbrotData_t3, 1000, 1000);
+    std::thread t4(MandelbrotData_t4, 1000, 1000);
 
     t1.join();
     t2.join();
