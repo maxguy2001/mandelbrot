@@ -70,8 +70,8 @@ and wrties them along with a boolean mask of if they are in the mandelbrot
 set to files.
 */
 void MandelbrotData_t1(int points_along_real, int points_along_imag){
-    std::complex<double> top_left = -2+1.2j;
-    std::complex<double> bottom_right = 0;
+    std::complex<double> top_left = -1.5+1.2j;
+    std::complex<double> bottom_right = -0.45-0.05j;
     
     std::complex<double> delta_real = std::abs(top_left.real() - bottom_right.real()) /
                         static_cast<std::complex<double>>(points_along_real);
@@ -112,8 +112,8 @@ and wrties them along with a boolean mask of if they are in the mandelbrot
 set to files.
 */
 void MandelbrotData_t2(int points_along_real, int points_along_imag){
-    std::complex<double> top_left = 1.2j;
-    std::complex<double> bottom_right = 1.2;
+    std::complex<double> top_left = -0.55+1.2j;
+    std::complex<double> bottom_right = 0.5-0.05j;
     
     std::complex<double> delta_real = std::abs(top_left.real() - bottom_right.real()) /
                         static_cast<std::complex<double>>(points_along_real);
@@ -153,8 +153,8 @@ and wrties them along with a boolean mask of if they are in the mandelbrot
 set to files.
 */
 void MandelbrotData_t3(int points_along_real, int points_along_imag){
-    std::complex<double> top_left = -2;
-    std::complex<double> bottom_right = -1.2j;
+    std::complex<double> top_left = -1.5+0.05j;
+    std::complex<double> bottom_right = -0.45-1.2j;
     
     std::complex<double> delta_real = std::abs(top_left.real() - bottom_right.real()) /
                         static_cast<std::complex<double>>(points_along_real);
@@ -195,8 +195,8 @@ and wrties them along with a boolean mask of if they are in the mandelbrot
 set to files.
 */
 void MandelbrotData_t4(int points_along_real, int points_along_imag){
-    std::complex<double> top_left = 0;
-    std::complex<double> bottom_right = -1.2-1.2j;
+    std::complex<double> top_left = -0.55+0.05j;
+    std::complex<double> bottom_right = 0.5-1.2j;
     
     std::complex<double> delta_real = std::abs(top_left.real() - bottom_right.real()) /
                         static_cast<std::complex<double>>(points_along_real);
