@@ -11,18 +11,18 @@
 /*
 @brief returns the modulus of a complex number
 */
-double mod(std::complex<double> z){
-    double real = z.real();
-    double imag = z.imag();
-    double mod_squared = std::pow(real, 2) + std::pow(imag, 2);
-    double modulus = sqrt(mod_squared);
+double mod(const std::complex<double> z){
+    const double real = z.real();
+    const double imag = z.imag();
+    const double mod_squared = std::pow(real, 2) + std::pow(imag, 2);
+    const double modulus = sqrt(mod_squared);
     return modulus;
 }
 
 /*
 @brief returns a boolean value of if a complex number is in the mandelbrot set.
 */
-bool inMandelbrot(std::complex<double> c){
+bool inMandelbrot(const std::complex<double> c){
     std::complex<double> z_n_1;
     std::complex<double> z_n = 0;
     bool in_set = false;
@@ -49,18 +49,17 @@ bool inMandelbrot(std::complex<double> c){
 and wrties them along with a boolean mask of if they are in the mandelbrot
 set to files.
 */
-void MandelbrotData_t1(int points_along_real, int points_along_imag){
-    std::complex<double> top_left = -1.5+1.2j;
-    std::complex<double> bottom_right = -0.45-0.05j;
+void MandelbrotData_t1(const int points_along_real, const int points_along_imag){
+    const std::complex<double> top_left = -1.5+1.2j;
+    const std::complex<double> bottom_right = -0.45-0.05j;
     
-    std::complex<double> delta_real = std::abs(top_left.real() - bottom_right.real()) /
+    const std::complex<double> delta_real = std::abs(top_left.real() - bottom_right.real()) /
                         static_cast<std::complex<double>>(points_along_real);
-    double delta_imag_real = std::abs(top_left.imag() - bottom_right.imag()) /
+    const double delta_imag_real = std::abs(top_left.imag() - bottom_right.imag()) /
                         static_cast<double>(points_along_imag);
-    std::complex<double> imaginary_number = 1j;
-    std::complex<double> delta_imag = delta_imag_real*imaginary_number;
+    const std::complex<double> imaginary_number = 1j;
+    const std::complex<double> delta_imag = delta_imag_real*imaginary_number;
 
-    std::vector<std::complex<double>> datapoints;    
     std::complex<double> current_point = top_left;
 
     for(size_t re = 1; re < points_along_real; ++re){
@@ -91,18 +90,17 @@ void MandelbrotData_t1(int points_along_real, int points_along_imag){
 and wrties them along with a boolean mask of if they are in the mandelbrot
 set to files.
 */
-void MandelbrotData_t2(int points_along_real, int points_along_imag){
-    std::complex<double> top_left = -0.55+1.2j;
-    std::complex<double> bottom_right = 0.5-0.05j;
+void MandelbrotData_t2(const int points_along_real, const int points_along_imag){
+    const std::complex<double> top_left = -0.55+1.2j;
+    const std::complex<double> bottom_right = 0.5-0.05j;
     
-    std::complex<double> delta_real = std::abs(top_left.real() - bottom_right.real()) /
+    const std::complex<double> delta_real = std::abs(top_left.real() - bottom_right.real()) /
                         static_cast<std::complex<double>>(points_along_real);
-    double delta_imag_real = std::abs(top_left.imag() - bottom_right.imag()) /
+    const double delta_imag_real = std::abs(top_left.imag() - bottom_right.imag()) /
                         static_cast<double>(points_along_imag);
-    std::complex<double> imaginary_number = 1j;
-    std::complex<double> delta_imag = delta_imag_real*imaginary_number;
+    const std::complex<double> imaginary_number = 1j;
+    const std::complex<double> delta_imag = delta_imag_real*imaginary_number;
 
-    std::vector<std::complex<double>> datapoints;    
     std::complex<double> current_point = top_left;
 
     for(size_t re = 1; re < points_along_real; ++re){
@@ -132,18 +130,17 @@ void MandelbrotData_t2(int points_along_real, int points_along_imag){
 and wrties them along with a boolean mask of if they are in the mandelbrot
 set to files.
 */
-void MandelbrotData_t3(int points_along_real, int points_along_imag){
-    std::complex<double> top_left = -1.5+0.05j;
-    std::complex<double> bottom_right = -0.45-1.2j;
+void MandelbrotData_t3(const int points_along_real, const int points_along_imag){
+    const std::complex<double> top_left = -1.5+0.05j;
+    const std::complex<double> bottom_right = -0.45-1.2j;
     
-    std::complex<double> delta_real = std::abs(top_left.real() - bottom_right.real()) /
+    const std::complex<double> delta_real = std::abs(top_left.real() - bottom_right.real()) /
                         static_cast<std::complex<double>>(points_along_real);
-    double delta_imag_real = std::abs(top_left.imag() - bottom_right.imag()) /
+    const double delta_imag_real = std::abs(top_left.imag() - bottom_right.imag()) /
                         static_cast<double>(points_along_imag);
-    std::complex<double> imaginary_number = 1j;
-    std::complex<double> delta_imag = delta_imag_real*imaginary_number;
+    const std::complex<double> imaginary_number = 1j;
+    const std::complex<double> delta_imag = delta_imag_real*imaginary_number;
 
-    std::vector<std::complex<double>> datapoints;    
     std::complex<double> current_point = top_left;
 
     for(size_t re = 1; re < points_along_real; ++re){
@@ -175,17 +172,16 @@ and wrties them along with a boolean mask of if they are in the mandelbrot
 set to files.
 */
 void MandelbrotData_t4(int points_along_real, int points_along_imag){
-    std::complex<double> top_left = -0.55+0.05j;
-    std::complex<double> bottom_right = 0.5-1.2j;
+    const std::complex<double> top_left = -0.55+0.05j;
+    const std::complex<double> bottom_right = 0.5-1.2j;
     
-    std::complex<double> delta_real = std::abs(top_left.real() - bottom_right.real()) /
+    const std::complex<double> delta_real = std::abs(top_left.real() - bottom_right.real()) /
                         static_cast<std::complex<double>>(points_along_real);
-    double delta_imag_real = std::abs(top_left.imag() - bottom_right.imag()) /
+    const double delta_imag_real = std::abs(top_left.imag() - bottom_right.imag()) /
                         static_cast<double>(points_along_imag);
-    std::complex<double> imaginary_number = 1j;
-    std::complex<double> delta_imag = delta_imag_real*imaginary_number;
+    const std::complex<double> imaginary_number = 1j;
+    const std::complex<double> delta_imag = delta_imag_real*imaginary_number;
 
-    std::vector<std::complex<double>> datapoints;    
     std::complex<double> current_point = top_left;
 
     for(size_t re = 1; re < points_along_real; ++re){
@@ -211,10 +207,11 @@ void MandelbrotData_t4(int points_along_real, int points_along_imag){
 
 
 int main(){
-    std::thread t1(MandelbrotData_t1, 1000, 1000);
-    std::thread t2(MandelbrotData_t2, 1000, 1000);
-    std::thread t3(MandelbrotData_t3, 1000, 1000);
-    std::thread t4(MandelbrotData_t4, 1000, 1000);
+    const uint16_t num_points = 2500;
+    std::thread t1(MandelbrotData_t1, num_points, num_points);
+    std::thread t2(MandelbrotData_t2, num_points, num_points);
+    std::thread t3(MandelbrotData_t3, num_points, num_points);
+    std::thread t4(MandelbrotData_t4, num_points, num_points);
 
     t1.join();
     t2.join();
